@@ -1,0 +1,56 @@
+class node {
+    constructor(val=null,node=null) {
+        this.data = val
+        this.next = node
+    }
+}
+
+const createList = (arr) => {
+    var head = null, cur = null;
+    arr.map( 
+        (val, index) => {
+            var newNode = new node(val,null)
+            if(head === null){
+                head = newNode
+                cur = head
+            }
+            else {
+                cur.next = newNode
+                cur = newNode
+            }
+        }
+    )
+    return head
+}
+
+const printList = (head) => {
+    var cur = head
+    while(cur !== null){
+        console.log(cur.data)
+        cur = cur.next
+    }
+}
+
+const reverse = (head) => {
+    var prev=null, cur=head, next=head
+//                                                      next
+//                      next                                 prev  cur
+    // null     <- 1    <- 2    <- 3    <- 4    <- 5    -> null
+    while(cur!==null){
+        next = cur.next
+        cur.next = prev
+        prev = cur
+        cur = next
+    }
+    return prev
+}
+
+var arr = [1,2,3,4,5]
+
+var head = createList(arr)
+// printList(head)
+
+var reversedList = reverse(head)
+printList(reversedList)
+
+
