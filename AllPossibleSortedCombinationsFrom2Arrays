@@ -1,0 +1,30 @@
+var A = [10, 15, 25]
+var B = [1, 5, 20, 30]
+
+const getNextLargePos = (arr, pos, val) => {
+    for(let i = pos ; i < arr.length ; i++){
+        if(arr[i]>=val) return i
+    }
+    return -1
+}
+
+const getPossibleCombinations = (A, ai, B, bi, out) => {
+  if(out.length>0)
+    console.log(out.join(' '))
+  if(ai === -1) {
+    return 
+  }
+  for(let i = ai ; i < A.length; i++){
+    for(let j = bi ; j < B.length;){
+      var nextBpos = getNextLargePos(B, j, A[i])
+      if(nextBpos === -1) break
+      if(nextBpos !== -1) {
+        let nextAi = getNextLargePos(A, i+1, B[nextBpos])
+        getPossibleCombinations(A,nextAi, B, j+1, [...out, A[i], B[nextBpos]])
+      }
+       j=nextBpos+1
+    }
+  }
+}
+
+getPossibleCombinations(A, 0, B, 0, [])
